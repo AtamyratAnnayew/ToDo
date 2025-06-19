@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./App.css";
+import TodoPage from "./components/todoPage"; // Make sure the path is correct
 
 type ToDo = {
   name: string;
@@ -18,7 +19,7 @@ function App() {
 
     setTodo((prevTodos) => [
       ...prevTodos,
-      { name, lastName, age: Number(age) }, // Convert age to a number
+      { name, lastName, age: Number(age) },
     ]);
     setName("");
     setLastName("");
@@ -57,27 +58,16 @@ function App() {
         </div>
         <button
           onClick={add}
-          className=" cursor-pointer w-full py-2 bg-black text-white rounded-2xl hover:bg-gray-800 transition duration-300"
+          className="cursor-pointer w-full py-2 bg-black text-white rounded-2xl hover:bg-gray-800 transition duration-300"
         >
           Add
         </button>
       </div>
 
+      {/* ✅ Styled wrapper around TodoPage list */}
       <div className="space-y-4">
         {todo.map((item, index) => (
-          <div key={index} className="flex items-center justify-between p-4 bg-gray-100 rounded-lg shadow-md">
-            <div className="text-black">
-              <span className="font-semibold">{item.name}</span> 
-              <span>{item.lastName}</span> 
-              <span>{item.age}</span>
-            </div>
-            <button
-              onClick={() => deleteToDo(item.name)}
-              className="cursor-pointer text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-2xl transition duration-300"
-            >
-              Delete
-            </button>
-          </div>
+          <TodoPage key={index} item={item} deleteToDo={deleteToDo} />
         ))}
       </div>
     </div>
